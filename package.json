@@ -1,0 +1,24 @@
+{
+  "name": "erpnext-cloudflare-codemode",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20261015.0",
+    "@types/node": "^24.7.2",
+    "typescript": "^5.9.3",
+    "vitest": "^3.2.4",
+    "wrangler": "^4.42.0"
+  },
+  "dependencies": {
+    "@cloudflare/codemode": "^0.5.4",
+    "agents": "^0.28.1"
+  }
+}
