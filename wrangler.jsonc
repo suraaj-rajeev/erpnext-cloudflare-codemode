@@ -5,5 +5,8 @@
   "compatibility_date": "2026-10-22",
   "compatibility_flags": ["nodejs_compat"],
   "worker_loaders": [{ "binding": "LOADER" }],
+  "vars": {
+    "ERPNEXT_BASE_URL": "https://your-site.frappe.cloud"
+  },
   "observability": { "enabled": true }
 }
