@@ -5,7 +5,7 @@ import { ERPNEXT_OPENAPI_SPEC } from "./openapi";
 import { bearerMatches, parseAllowedResourcePath, RequestPolicyError, validateQuery } from "./security";
 
 interface Env {
-  LOADER: { get(name: string): unknown };
+  LOADER: any;
   ERPNEXT_BASE_URL: string;
   ERPNEXT_API_KEY: string;
   ERPNEXT_API_SECRET: string;
@@ -87,7 +87,7 @@ export default {
     }
 
     const server = openApiMcpServer({
-      spec: ERPNEXT_OPENAPI_SPEC,
+      spec: ERPNEXT_OPENAPI_SPEC as any,
       executor: new DynamicWorkerExecutor({ loader: env.LOADER }),
       name: "erpnext-readonly",
       version: "1.0.0",
