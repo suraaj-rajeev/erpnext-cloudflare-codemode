@@ -16,7 +16,7 @@ export function parseAllowedResourcePath(path: string): string {
   if (!path.startsWith("/") || path.includes("..") || path.includes("\\") || path.includes("?") || path.includes("#")) {
     throw new RequestPolicyError("Invalid API path");
   }
-  const match = /^\/api\/resource\/(Customer|Item|Supplier|Sales%20Order|Sales%20Order)$/i.exec(path);
+  const match = /^\/api\/resource\/(Customer|Item|Supplier|Sales(?:%20| )Order)$/i.exec(path);
   if (!match) throw new RequestPolicyError("Only approved ERPNext resource endpoints are allowed", 403);
   const encoded = match[1];
   const doctype = decodeURIComponent(encoded);
@@ -69,7 +69,7 @@ export function validateQuery(doctype: string, input: Record<string, unknown>): 
       } else throw new RequestPolicyError("Filter must have 3 or 4 elements");
       if (typeof field !== "string" || !allowedFields.includes(field)) throw new RequestPolicyError("Filter field is not allowed");
       if (typeof operator !== "string" || !SAFE_OPERATORS.has(operator.toLowerCase())) throw new RequestPolicyError("Filter operator is not allowed");
-      if (value === undefined || value === null || typeof value === "object") throw new RequestPolicyError("Filter value must be a scalar or scalar array");
+      if (value === undefined || value === null || (typeof value === "object" && !Array.isArray(value))) throw new RequestPolicyError("Filter value must be a scalar or scalar array");
       if (Array.isArray(value) && (value.length > 100 || value.some((item) => item === null || typeof item === "object"))) {
         throw new RequestPolicyError("Filter array is invalid or too large");
       }
